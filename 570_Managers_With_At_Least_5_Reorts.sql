@@ -1,5 +1,8 @@
-SELECT DISTINCT manager.name
-FROM employee manager
-JOIN employee subordinate ON manager.id = subordinate.managerId
-GROUP BY manager.name
-HAVING COUNT(subordinate.id) >= 5;
+SELECT name 
+FROM Employee
+WHERE id IN (
+  SELECT managerId
+  FROM Employee
+  GROUP BY managerId
+  HAVING COUNT(id) >= 5
+)
